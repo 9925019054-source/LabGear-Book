@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LabGear Book | Campus Resource Scheduler</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 15% 20%, #1e40af 0, transparent 35%),
+                radial-gradient(circle at 85% 80%, #0e7490 0, transparent 35%),
+                #071426;
+            color: #f8fafc;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 7%;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: -0.8px;
+        }
+
+        .logo span {
+            color: #67e8f9;
+        }
+
+        .tagline {
+            color: #cbd5e1;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .badge {
+            border: 1px solid #334155;
+            background: #0f2138;
+            padding: 9px 15px;
+            border-radius: 30px;
+            color: #a5f3fc;
+            font-size: 12px;
+        }
+
+        main {
+            width: 100%;
+            max-width: 1100px;
+            margin: auto;
+            padding: 25px 20px 50px;
+            display: grid;
+            grid-template-columns: 1fr 410px;
+            gap: 65px;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 5vw, 57px);
+            line-height: 1.12;
+            letter-spacing: -1.5px;
+            margin: 18px 0;
+        }
+
+        .hero h1 span {
+            color: #67e8f9;
+        }
+
+        .hero p {
+            max-width: 470px;
+            color: #cbd5e1;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            padding: 8px 12px;
+            border: 1px solid #164e63;
+            background: #083344;
+            border-radius: 25px;
+            color: #a5f3fc;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .feature {
+            padding: 11px 13px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: #e2e8f0;
+            font-size: 12px;
+        }
+
+        .auth-card {
+            background: rgba(15, 31, 53, 0.92);
+            border: 1px solid #334155;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.3);
+        }
+
+        .auth-card h2 {
+            font-size: 25px;
+            margin-bottom: 8px;
+        }
+
+        .subtext {
+            color: #94a3b8;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 23px;
+        }
+
+        .tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            padding: 5px;
+            border-radius: 12px;
+            background: #09182b;
+            margin-bottom: 22px;
+        }
+
+        .tab {
+            border: 0;
+            padding: 12px;
+            border-radius: 9px;
+            background: transparent;
+            color: #94a3b8;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .tab.active {
+            background: #164e63;
+            color: #a5f3fc;
+        }
+
+        .form-panel {
+            display: none;
+        }
+
+        .form-panel.active {
+            display: block;
+        }
+
+        label {
+            display: block;
+            color: #cbd5e1;
+            font-size: 12px;
+            font-weight: 600;
+            margin: 15px 0 7px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #334155;
+            background: #09182b;
+            color: #f8fafc;
+            border-radius: 10px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        input:focus, select:focus {
+            border-color: #22d3ee;
+            box-shadow: 0 0 0 3px rgba(34,211,238,0.1);
+        }
+
+        input::placeholder {
+            color: #64748b;
+        }
+
+        .submit-btn {
+            width: 100%;
+            border: none;
+            margin-top: 23px;
+            padding: 14px;
+            border-radius: 10px;
+            background: linear-gradient(100deg, #0891b2, #2563eb);
+            color: white;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.92;
+        }
+
+        footer {
+            padding: 18px;
+            text-align: center;
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        @media (max-width: 800px) {
+            header {
+                padding: 20px;
+            }
+
+            .badge {
+                display: none;
+            }
+
+            main {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                max-width: 500px;
+            }
+
+            .hero h1 {
+                font-size: 39px;
+            }
+
+            .auth-card {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div>
+            <div class="logo">LabGear <span>Book.</span></div>
+            <div class="tagline">Campus Lab & Resource Scheduler</div>
+        </div>
+        <div class="badge">● CAMPUS RESOURCE MANAGEMENT</div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <span class="eyebrow">SMARTER CAMPUS · BETTER SCHEDULING</span>
+
+            <h1>Your Campus.<br>Your Lab.<br><span>Your Time.</span></h1>
+
+            <p>
+                Book laboratory resources, manage your reservations,
+                and track approval status — all in one simple platform.
+            </p>
+
+            <div class="features">
+                <div class="feature">🔬 Lab Resources</div>
+                <div class="feature">📅 Smart Booking</div>
+                <div class="feature">✅ Faculty Approval</div>
+                <div class="feature">🛡️ Conflict Prevention</div>
+            </div>
+        </section>
+
+        <section class="auth-card">
+            <h2 id="form-title">Welcome back 👋</h2>
+            <p class="subtext" id="form-subtitle">
+                Sign in to access your campus resources.
+            </p>
+
+            <div class="tabs">
+                <button type="button" class="tab active"
+                        id="login-tab" onclick="showForm('login')">
+                    Sign In
+                </button>
+                <button type="button" class="tab"
+                        id="register-tab" onclick="showForm('register')">
+                    Create Account
+                </button>
+            </div>
+
+            <form class="form-panel active" id="login-form"
+                  action="/login" method="POST">
+
+                <label for="login-email">Email Address</label>
+                <input id="login-email" type="email" name="email"
+                       placeholder="you@college.edu" required>
+
+                <label for="login-password">Password</label>
+                <input id="login-password" type="password" name="password"
+                       placeholder="Enter your password" required>
+
+                <button type="submit" class="submit-btn">
+                    Sign In to LabGear →
+                </button>
+            </form>
+
+            <form class="form-panel" id="register-form"
+                  action="/register" method="POST">
+
+                <label for="register-name">Full Name</label>
+                <input id="register-name" type="text" name="name"
+                       placeholder="Enter your full name" required>
+
+                <label for="register-email">Email Address</label>
+                <input id="register-email" type="email" name="email"
+                       placeholder="you@college.edu" required>
+
+                <label for="register-password">Password</label>
+                <input id="register-password" type="password" name="password"
+                       placeholder="Create a password" required>
+
+                <label for="register-role">Account Type</label>
+                <select id="register-role" name="role" required>
+                    <option value="student">Student</option>
+                    <option value="faculty">Faculty</option>
+                </select>
+
+                <button type="submit" class="submit-btn">
+                    Create My Account →
+                </button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        © 2026 LabGear Book · Campus Lab & Resource Scheduler
+    </footer>
+
+    <script>
+        function showForm(type) {
+            const loginMode = type === "login";
+
+            document.getElementById("login-form").classList.toggle(
+                "active", loginMode
+            );
+            document.getElementById("register-form").classList.toggle(
+                "active", !loginMode
+            );
+
+            document.getElementById("login-tab").classList.toggle(
+                "active", loginMode
+            );
+            document.getElementById("register-tab").classList.toggle(
+                "active", !loginMode
+            );
+
+            document.getElementById("form-title").textContent =
+                loginMode ? "Welcome back 👋" : "Join LabGear Book ✨";
+
+            document.getElementById("form-subtitle").textContent =
+                loginMode
+                    ? "Sign in to access your campus resources."
+                    : "Create your account to start booking resources.";
+        }
+    </script>
+</body>
+</html>
