@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings | LabGear Book</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: #f8fafc;
+            background:
+                radial-gradient(ellipse at top left, #1e40af 0%, transparent 45%),
+                radial-gradient(ellipse at bottom right, #6d28d9 0%, transparent 40%),
+                #070d1c;
+        }
+
+        header {
+            padding: 22px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            background: #0b112080;
+            border-bottom: 1px solid #ffffff15;
+            backdrop-filter: blur(15px);
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: #60a5fa;
+        }
+
+        .welcome {
+            margin-top: 7px;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            color: #93c5fd;
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 45px 22px;
+        }
+
+        .page-heading {
+            margin-bottom: 28px;
+        }
+
+        .eyebrow {
+            color: #60a5fa;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        h2 {
+            font-size: clamp(26px, 4vw, 36px);
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            line-height: 1.7;
+        }
+
+        .booking-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 20px;
+        }
+
+        .booking-card {
+            padding: 25px;
+            border-radius: 20px;
+            background: #111b31cc;
+            border: 1px solid #ffffff18;
+            box-shadow: 0 15px 40px #00000020;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .booking-card:hover {
+            transform: translateY(-4px);
+            border-color: #60a5fa70;
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .resource-icon {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            border-radius: 14px;
+            background: #3b82f625;
+            font-size: 25px;
+        }
+
+        .booking-id {
+            color: #64748b;
+            font-size: 12px;
+            padding-top: 5px;
+        }
+
+        .booking-card h3 {
+            font-size: 21px;
+            margin-bottom: 20px;
+            color: #dbeafe;
+            overflow-wrap: anywhere;
+        }
+
+        .detail {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #ffffff0d;
+            font-size: 14px;
+        }
+
+        .detail:last-of-type {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: #94a3b8;
+        }
+
+        .detail-value {
+            color: #e2e8f0;
+            text-align: right;
+            overflow-wrap: anywhere;
+        }
+
+        .status-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .status-label {
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 8px 13px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: capitalize;
+        }
+
+        .status.pending {
+            background: #f59e0b20;
+            border: 1px solid #fbbf2440;
+            color: #fbbf24;
+        }
+
+        .status.approved {
+            background: #10b98120;
+            border: 1px solid #34d39940;
+            color: #6ee7b7;
+        }
+
+        .status.rejected {
+            background: #ef444420;
+            border: 1px solid #f8717140;
+            color: #fca5a5;
+        }
+
+        .status.other {
+            background: #64748b25;
+            border: 1px solid #94a3b840;
+            color: #cbd5e1;
+        }
+
+        .empty {
+            padding: 55px 25px;
+            text-align: center;
+            border-radius: 20px;
+            background: #111b31cc;
+            border: 1px solid #ffffff18;
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 18px;
+        }
+
+        .empty h3 {
+            font-size: 23px;
+            margin-bottom: 12px;
+        }
+
+        .empty p {
+            color: #94a3b8;
+            line-height: 1.7;
+        }
+
+        .primary-btn {
+            display: inline-block;
+            margin-top: 24px;
+            padding: 13px 20px;
+            border-radius: 11px;
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px 15px;
+            color: #64748b;
+            font-size: 12px;
+            border-top: 1px solid #ffffff10;
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 20px;
+            }
+
+            .container {
+                padding: 30px 16px;
+            }
+
+            .booking-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div>
+            <div class="logo">LabGear <span>Book.</span></div>
+            <p class="welcome">Welcome back, {{ name }}!</p>
+        </div>
+
+        <nav class="nav-links">
+            <a href="/resources">Resources</a>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="page-heading">
+            <p class="eyebrow">YOUR ACTIVITY</p>
+            <h2>My Bookings 📋</h2>
+            <p class="subtitle">
+                Track your resource reservations and approval status in one place.
+            </p>
+        </section>
+
+        {% if bookings %}
+            <div class="booking-grid">
+                {% for booking in bookings %}
+                    <article class="booking-card">
+                        <div class="card-top">
+                            <div class="resource-icon">🔬</div>
+                            <div class="booking-id">
+                                BOOKING #{{ booking.id }}
+                            </div>
+                        </div>
+
+                        <h3>{{ booking.resource_name }}</h3>
+
+                        <div class="detail">
+                            <span class="detail-label">📅 Date</span>
+                            <span class="detail-value">
+                                {{ booking.booking_date }}
+                            </span>
+                        </div>
+
+                        <div class="detail">
+                            <span class="detail-label">🕒 Start Time</span>
+                            <span class="detail-value">
+                                {{ booking.start_time }}
+                            </span>
+                        </div>
+
+                        <div class="detail">
+                            <span class="detail-label">🕒 End Time</span>
+                            <span class="detail-value">
+                                {{ booking.end_time }}
+                            </span>
+                        </div>
+
+                        <div class="status-row">
+                            <span class="status-label">Approval Status</span>
+
+                            {% set current_status = booking.status|lower %}
+
+                            <span class="status
+                                {% if current_status == 'pending' %}pending
+                                {% elif current_status == 'approved' %}approved
+                                {% elif current_status == 'rejected' %}rejected
+                                {% else %}other{% endif %}">
+                                {% if current_status == 'pending' %}⏳
+                                {% elif current_status == 'approved' %}✓
+                                {% elif current_status == 'rejected' %}✕
+                                {% endif %}
+                                {{ booking.status|title }}
+                            </span>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+
+        {% else %}
+            <section class="empty">
+                <div class="empty-icon">📭</div>
+                <h3>No Bookings Yet</h3>
+                <p>
+                    You haven't booked any resources yet.
+                    Explore the available campus labs and equipment to get started.
+                </p>
+                <a class="primary-btn" href="/resources">
+                    Explore Resources →
+                </a>
+            </section>
+        {% endif %}
+
+        <a class="primary-btn" href="/resources">
+            ← Back to Resources
+        </a>
+    </main>
+
+    <footer>
+        LabGear Book · Campus Lab & Resource Scheduler
+    </footer>
+</body>
+</html>
