@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Faculty Approvals | LabGear Book</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: #f8fafc;
+            background:
+                radial-gradient(ellipse at top left, #1e40af 0%, transparent 45%),
+                radial-gradient(ellipse at bottom right, #6d28d9 0%, transparent 40%),
+                #070d1c;
+        }
+
+        header {
+            padding: 22px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            background: #0b112080;
+            border-bottom: 1px solid #ffffff15;
+            backdrop-filter: blur(15px);
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: #60a5fa;
+        }
+
+        .header-subtitle {
+            margin-top: 7px;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 18px;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            color: #93c5fd;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 45px 22px;
+        }
+
+        .eyebrow {
+            margin-bottom: 12px;
+            color: #60a5fa;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        h2 {
+            margin-bottom: 12px;
+            font-size: clamp(26px, 4vw, 36px);
+            letter-spacing: -1px;
+        }
+
+        .intro {
+            margin-bottom: 30px;
+            color: #94a3b8;
+            line-height: 1.7;
+        }
+
+        .summary {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+            padding: 18px 22px;
+            border: 1px solid #ffffff18;
+            border-radius: 16px;
+            background: #111b31a8;
+        }
+
+        .summary-label {
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .summary-title {
+            margin-top: 6px;
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .summary-icon {
+            font-size: 30px;
+        }
+
+        .booking-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .booking-card {
+            padding: 25px;
+            border: 1px solid #ffffff18;
+            border-radius: 20px;
+            background: #111b31cc;
+            box-shadow: 0 15px 40px #00000020;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .booking-card:hover {
+            transform: translateY(-4px);
+            border-color: #60a5fa70;
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .resource-icon {
+            display: grid;
+            width: 48px;
+            height: 48px;
+            place-items: center;
+            border-radius: 14px;
+            background: #3b82f625;
+            font-size: 25px;
+        }
+
+        .booking-id {
+            padding-top: 5px;
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .booking-card h3 {
+            margin-bottom: 20px;
+            color: #dbeafe;
+            font-size: 21px;
+            overflow-wrap: anywhere;
+        }
+
+        .detail {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #ffffff0d;
+            font-size: 14px;
+        }
+
+        .detail-label {
+            color: #94a3b8;
+        }
+
+        .detail-value {
+            color: #e2e8f0;
+            text-align: right;
+            overflow-wrap: anywhere;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 8px 13px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .status.pending {
+            color: #fbbf24;
+            background: #f59e0b20;
+            border: 1px solid #fbbf2440;
+        }
+
+        .status.approved {
+            color: #6ee7b7;
+            background: #10b98120;
+            border: 1px solid #34d39940;
+        }
+
+        .status.rejected {
+            color: #fca5a5;
+            background: #ef444420;
+            border: 1px solid #f8717140;
+        }
+
+        .status.other {
+            color: #cbd5e1;
+            background: #64748b25;
+            border: 1px solid #94a3b840;
+        }
+
+        .status-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .status-label {
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 23px;
+        }
+
+        .actions form {
+            flex: 1;
+            margin: 0;
+        }
+
+        .actions button {
+            width: 100%;
+            padding: 12px 10px;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, filter 0.2s;
+        }
+
+        .actions button:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.12);
+        }
+
+        .approve {
+            background: linear-gradient(135deg, #059669, #10b981);
+        }
+
+        .reject {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+        }
+
+        .empty {
+            padding: 55px 25px;
+            border: 1px solid #ffffff18;
+            border-radius: 20px;
+            background: #111b31cc;
+            text-align: center;
+        }
+
+        .empty-icon {
+            margin-bottom: 18px;
+            font-size: 48px;
+        }
+
+        .empty h3 {
+            margin-bottom: 12px;
+            font-size: 23px;
+        }
+
+        .empty p {
+            color: #94a3b8;
+            line-height: 1.7;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 28px;
+            padding: 13px 20px;
+            border-radius: 11px;
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        footer {
+            padding: 25px 15px;
+            border-top: 1px solid #ffffff10;
+            color: #64748b;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 20px;
+            }
+
+            .container {
+                padding: 30px 16px;
+            }
+
+            .booking-card {
+                padding: 20px;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div>
+            <div class="logo">LabGear <span>Book.</span></div>
+            <p class="header-subtitle">Faculty Dashboard · Booking Approvals</p>
+        </div>
+
+        <nav class="nav-links">
+            <a href="/resources">Resources</a>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <p class="eyebrow">FACULTY WORKSPACE</p>
+
+        <h2>Booking Approvals 📋</h2>
+
+        <p class="intro">
+            Review student requests and manage campus laboratory
+            and equipment reservations.
+        </p>
+
+        <div class="summary">
+            <div>
+                <div class="summary-label">RESOURCE MANAGEMENT</div>
+                <div class="summary-title">Student Booking Requests</div>
+            </div>
+            <div class="summary-icon">🧑‍🏫</div>
+        </div>
+
+        {% if bookings %}
+            <div class="booking-grid">
+                {% for booking in bookings %}
+                    <section class="booking-card">
+                        <div class="card-top">
+                            <div class="resource-icon">🔬</div>
+                            <div class="booking-id">
+                                BOOKING #{{ booking.id }}
+                            </div>
+                        </div>
+
+                        <h3>{{ booking.resource_name }}</h3>
+
+                        <div class="detail">
+                            <span class="detail-label">👤 Student</span>
+                            <span class="detail-value">
+                                {{ booking.student_name }}
+                            </span>
+                        </div>
+
+                        <div class="detail">
+                            <span class="detail-label">📅 Date</span>
+                            <span class="detail-value">
+                                {{ booking.booking_date }}
+                            </span>
+                        </div>
+
+                        <div class="detail">
+                            <span class="detail-label">🕒 Start</span>
+                            <span class="detail-value">
+                                {{ booking.start_time }}
+                            </span>
+                        </div>
+
+                        <div class="detail">
+                            <span class="detail-label">🕒 End</span>
+                            <span class="detail-value">
+                                {{ booking.end_time }}
+                            </span>
+                        </div>
+
+                        <div class="status-row">
+                            <span class="status-label">Current Status</span>
+
+                            {% set current_status = booking.status|lower %}
+
+                            <span class="status
+                                {% if current_status == 'pending' %}pending
+                                {% elif current_status == 'approved' %}approved
+                                {% elif current_status == 'rejected' %}rejected
+                                {% else %}other{% endif %}">
+                                {{ booking.status|title }}
+                            </span>
+                        </div>
+
+                        {% if current_status == 'pending' %}
+                            <div class="actions">
+                                <form
+                                    method="POST"
+                                    action="/booking-status/{{ booking.id }}/approve"
+                                >
+                                    <button class="approve" type="submit">
+                                        ✓ Approve
+                                    </button>
+                                </form>
+
+                                <form
+                                    method="POST"
+                                    action="/booking-status/{{ booking.id }}/reject"
+                                >
+                                    <button class="reject" type="submit">
+                                        ✕ Reject
+                                    </button>
+                                </form>
+                            </div>
+                        {% endif %}
+                    </section>
+                {% endfor %}
+            </div>
+
+        {% else %}
+            <section class="empty">
+                <div class="empty-icon">📭</div>
+                <h3>No Booking Requests Yet</h3>
+                <p>
+                    Student booking requests will appear here
+                    when they reserve a lab or resource.
+                </p>
+            </section>
+        {% endif %}
+
+        <a class="back-btn" href="/resources">
+            ← Back to Resources
+        </a>
+    </main>
+
+    <footer>
+        LabGear Book · Campus Lab & Resource Scheduler
+    </footer>
+</body>
+</html>

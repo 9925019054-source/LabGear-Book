@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Resource | LabGear Book</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: #f8fafc;
+            background:
+                radial-gradient(ellipse at top left, #1e40af 0%, transparent 45%),
+                radial-gradient(ellipse at bottom right, #6d28d9 0%, transparent 40%),
+                #070d1c;
+        }
+
+        header {
+            padding: 22px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            border-bottom: 1px solid #ffffff15;
+            background: #0b112080;
+            backdrop-filter: blur(15px);
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: #60a5fa;
+        }
+
+        .header-link {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .header-link:hover {
+            color: #93c5fd;
+        }
+
+        .page {
+            width: 100%;
+            padding: 45px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .booking-card {
+            width: 100%;
+            max-width: 560px;
+            padding: 35px;
+            border-radius: 24px;
+            background: #111b31cc;
+            border: 1px solid #ffffff20;
+            box-shadow: 0 25px 70px #00000045;
+            backdrop-filter: blur(20px);
+            animation: appear 0.5s ease;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 7px 12px;
+            margin-bottom: 18px;
+            border-radius: 30px;
+            background: #2563eb25;
+            border: 1px solid #60a5fa45;
+            color: #93c5fd;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            font-size: 29px;
+            margin-bottom: 12px;
+            letter-spacing: -0.8px;
+        }
+
+        .resource-name {
+            margin-top: 22px;
+            padding: 18px;
+            border-radius: 14px;
+            background: #ffffff08;
+            border: 1px solid #ffffff12;
+        }
+
+        .resource-label {
+            color: #94a3b8;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 7px;
+        }
+
+        .resource-name h3 {
+            font-size: 20px;
+            color: #bfdbfe;
+        }
+
+        .description {
+            margin-top: 16px;
+            color: #a8b5ca;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        form {
+            margin-top: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 9px;
+            color: #e2e8f0;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid #334155;
+            border-radius: 11px;
+            background: #080f20;
+            color: #f8fafc;
+            font-family: inherit;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            color-scheme: dark;
+        }
+
+        input:focus {
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 3px #3b82f625;
+        }
+
+        .time-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            margin-top: 7px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 25px #3b82f630;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px #3b82f650;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 22px;
+            text-align: center;
+            color: #93c5fd;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            color: white;
+        }
+
+        .footer-note {
+            margin-top: 25px;
+            text-align: center;
+            color: #64748b;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 480px) {
+            .booking-card {
+                padding: 24px 19px;
+            }
+
+            h2 {
+                font-size: 25px;
+            }
+
+            .time-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">LabGear <span>Book.</span></div>
+        <a class="header-link" href="/resources">← All Resources</a>
+    </header>
+
+    <main class="page">
+        <section class="booking-card">
+
+            <div class="badge">✦ RESOURCE SCHEDULER</div>
+
+            <h2>Book Your Resource</h2>
+
+            <p class="description">
+                Select your preferred date and time to reserve your campus
+                laboratory or equipment.
+            </p>
+
+            <div class="resource-name">
+                <div class="resource-label">Selected Resource</div>
+                <h3>🔬 {{ resource.name }}</h3>
+            </div>
+
+            <form method="POST">
+                <div class="form-group">
+                    <label for="booking_date">📅 Booking Date</label>
+                    <input
+                        type="date"
+                        id="booking_date"
+                        name="booking_date"
+                        min="{{ today }}"
+                        required
+                    >
+                </div>
+
+                <div class="time-row">
+                    <div class="form-group">
+                        <label for="start_time">🕒 Start Time</label>
+                        <input
+                            type="time"
+                            id="start_time"
+                            name="start_time"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="end_time">🕒 End Time</label>
+                        <input
+                            type="time"
+                            id="end_time"
+                            name="end_time"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <button class="submit-btn" type="submit">
+                    Submit Booking Request →
+                </button>
+            </form>
+
+            <a class="back-link" href="/resources">
+                ← Back to Resources
+            </a>
+
+            <p class="footer-note">
+                🔐 Your request will be submitted for faculty approval.
+                <br>
+                LabGear Book · Campus Resource Management
+            </p>
+
+        </section>
+    </main>
+</body>
+</html>
