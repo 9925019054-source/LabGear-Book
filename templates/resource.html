@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Resources | LabGear Book</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f4f7fb;
+            color: #172554;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(110deg, #0b1f42, #164e8a);
+            color: white;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 5px 20px #0f172a18;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: -0.6px;
+        }
+
+        .logo span {
+            color: #67e8f9;
+        }
+
+        .subtitle {
+            color: #cbd5e1;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .nav {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            color: #e2e8f0;
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 9px;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+
+        .nav a:hover {
+            background: #ffffff1c;
+            color: white;
+        }
+
+        .welcome {
+            padding: 42px 7% 15px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            padding: 7px 12px;
+            background: #dbeafe;
+            color: #1d4ed8;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            margin-bottom: 14px;
+        }
+
+        .welcome h2 {
+            font-size: clamp(27px, 4vw, 36px);
+            margin-bottom: 10px;
+            letter-spacing: -0.7px;
+        }
+
+        .welcome p {
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        .toolbar {
+            padding: 20px 7% 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .resource-count {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .resource-count strong {
+            color: #1d4ed8;
+        }
+
+        .search-wrap {
+            width: min(100%, 340px);
+            position: relative;
+        }
+
+        .search-wrap span {
+            position: absolute;
+            left: 14px;
+            top: 12px;
+            font-size: 16px;
+        }
+
+        #resourceSearch {
+            width: 100%;
+            padding: 13px 15px 13px 42px;
+            border: 1px solid #dbe3ef;
+            border-radius: 12px;
+            outline: none;
+            background: white;
+            font-size: 14px;
+            color: #172554;
+            transition: 0.2s;
+        }
+
+        #resourceSearch:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px #3b82f615;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+            gap: 22px;
+            padding: 25px 7% 55px;
+        }
+
+        .card {
+            position: relative;
+            overflow: hidden;
+            background: white;
+            border-radius: 18px;
+            padding: 24px;
+            border: 1px solid #e5eaf2;
+            box-shadow: 0 6px 24px #0f172a08;
+            transition: transform 0.22s, box-shadow 0.22s;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #2563eb, #22d3ee);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px #0f172a12;
+        }
+
+        .icon {
+            width: 58px;
+            height: 58px;
+            display: grid;
+            place-items: center;
+            background: #eff6ff;
+            border-radius: 16px;
+            font-size: 29px;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 19px;
+            margin-bottom: 10px;
+            color: #172554;
+        }
+
+        .card p {
+            color: #64748b;
+            line-height: 1.7;
+            font-size: 13px;
+            margin-bottom: 10px;
+            overflow-wrap: anywhere;
+        }
+
+        .location {
+            font-size: 12px !important;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #dcfce7;
+            color: #166534;
+            padding: 7px 11px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 800;
+            margin-top: 5px;
+        }
+
+        .book-btn {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            padding: 13px;
+            background: linear-gradient(100deg, #2563eb, #1d4ed8);
+            color: white;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+
+        .book-btn:hover {
+            box-shadow: 0 6px 15px #2563eb35;
+            transform: translateY(-1px);
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            background: white;
+            border: 1px dashed #cbd5e1;
+            border-radius: 16px;
+            padding: 35px 20px;
+            color: #64748b;
+            line-height: 1.8;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px 15px;
+            color: #94a3b8;
+            font-size: 12px;
+            border-top: 1px solid #e5eaf2;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 18px 5%;
+            }
+
+            .welcome {
+                padding: 30px 5% 10px;
+            }
+
+            .toolbar {
+                padding: 20px 5% 5px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+                padding: 20px 5% 40px;
+            }
+
+            .search-wrap {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div>
+            <div class="logo">LabGear <span>Book.</span></div>
+            <div class="subtitle">Campus Lab & Resource Scheduler</div>
+        </div>
+
+        <nav class="nav">
+            <a href="/resources">🔬 Resources</a>
+            <a href="/my-bookings">📅 My Bookings</a>
+            <a href="/logout">Logout ↗</a>
+        </nav>
+    </header>
+
+    <section class="welcome">
+        <span class="eyebrow">CAMPUS RESOURCE HUB</span>
+        <h2>Explore Your Resources 🔬</h2>
+        <p>Welcome, {{ name }}! Find the right equipment and reserve your next lab session.</p>
+    </section>
+
+    <section class="toolbar">
+        <p class="resource-count">
+            Explore and book campus resources
+        </p>
+
+        <div class="search-wrap">
+            <span>🔍</span>
+            <input
+                type="search"
+                id="resourceSearch"
+                placeholder="Search labs or equipment..."
+                aria-label="Search campus resources"
+            >
+        </div>
+    </section>
+
+    <main class="grid" id="resourceGrid">
+        {% for resource in resources %}
+        <article class="card">
+            <div class="icon">
+                {% if 'computer' in resource.name.lower() %}💻
+                {% elif 'physics' in resource.name.lower() %}⚛️
+                {% elif 'chemistry' in resource.name.lower() %}🧪
+                {% elif 'projector' in resource.name.lower() %}📽️
+                {% elif '3d' in resource.name.lower() %}🖨️
+                {% elif 'arduino' in resource.name.lower() %}🔌
+                {% else %}🔬{% endif %}
+            </div>
+
+            <h3 class="resource-name">{{ resource.name }}</h3>
+            <p>{{ resource.description }}</p>
+            <p class="location">📍 {{ resource.location }}</p>
+
+            {% if resource.status == 'available' %}
+                <span class="status">● Available</span>
+            {% else %}
+                <span class="status">{{ resource.status|title }}</span>
+            {% endif %}
+
+            <a class="book-btn" href="/book/{{ resource.id }}">
+                Book This Resource →
+            </a>
+        </article>
+        {% else %}
+        <div class="empty-state">
+            <h3>No resources available yet</h3>
+            <p>Campus resources will appear here when they are added.</p>
+        </div>
+        {% endfor %}
+
+        <div class="empty-state" id="noResults" hidden>
+            <h3>No matching resources found 🔎</h3>
+            <p>Try another resource name, such as Computer Lab or Projector.</p>
+        </div>
+    </main>
+
+    <footer>
+        © 2026 LabGear Book · Campus Lab & Resource Scheduler
+    </footer>
+
+    <script>
+        const searchInput = document.getElementById("resourceSearch");
+        const cards = Array.from(document.querySelectorAll(".card"));
+        const noResults = document.getElementById("noResults");
+
+        searchInput.addEventListener("input", function () {
+            const query = this.value.trim().toLowerCase();
+            let visibleCount = 0;
+
+            cards.forEach(function (card) {
+                const name = card.querySelector(".resource-name")
+                    .textContent.toLowerCase();
+
+                const description = card.querySelector("p")
+                    .textContent.toLowerCase();
+
+                const location = card.querySelector(".location")
+                    .textContent.toLowerCase();
+
+                const matches =
+                    name.includes(query) ||
+                    description.includes(query) ||
+                    location.includes(query);
+
+                card.hidden = !matches;
+
+                if (matches) {
+                    visibleCount++;
+                }
+            });
+
+            noResults.hidden = visibleCount !== 0;
+        });
+    </script>
+</body>
+</html>
